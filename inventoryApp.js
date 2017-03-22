@@ -54,5 +54,30 @@ var menuFunctions = {
 		console.log("5. Change Descriptions");
 		console.log("6. Exit");
 		console.log("**************");
+		menuFunctions.makeChoiceAtMenu();
+	},
+	makeChoiceAtMenu: function() {
+		prompt.question("wat do: ", (userOption) => {
+			if (userOption == "1") {
+				console.log("1. Add Item");
+			} else if (userOption == "2") {
+				console.log("2. Delete Item");
+			} else if (userOption == "3") {
+				console.log("3. Search Item");
+			} else if (userOption == "4") {
+				console.log("4. Modify Quanities");
+			} else if (userOption == "5") {
+				console.log("5. Change Descriptions");
+			} else if (userOption == "6") {
+				console.log("Bai");
+				prompt.close();
+			} else {
+				console.log("Invalid. Try again.");
+				menuFunctions.makeChoiceAtMenu();
+			}
+		});
+
 	}
 };
+
+menuFunctions.menuOptions();
