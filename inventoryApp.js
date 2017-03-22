@@ -82,7 +82,7 @@ var menuFunctions = {
 			} else if (userOption == "4") {
 				menuFunctions.modifyQuantity();
 			} else if (userOption == "5") {
-				console.log("5. Change Descriptions");
+				menuFunctions.changeDescription();
 			} else if (userOption == "6") {
 				menuFunctions.listAllItems();
 			} else if (userOption == "7") {
@@ -138,11 +138,30 @@ var menuFunctions = {
 						storeInventoryArr[modifyThisEntrysQuant-1].quantity = parseInt(newHP);
 						console.log(storeInventoryArr[modifyThisEntrysQuant-1].name + "'s quantity has been updated to " + newHP);
 						menuFunctions.menuOptions();
-					});
-					
+					});	
 				} else {
 					console.log("Your entry was invalid! Try again.");
 					menuFunctions.modifyQuantity();
+				}
+		});		
+	},
+
+	changeDescription : function() {
+		menuFunctions.populateList();
+		prompt.question("What item to modify description? ('0' to cancel): ", (modifyThisEntrysDescription) => {
+				if (modifyThisEntrysDescription == "0") {
+					console.log("Returning to Main Menu...");
+					menuFunctions.menuOptions();
+				} else if ((modifyThisEntrysDescription <= storeInventoryArr.length) && (modifyThisEntrysDescription > 0)) {
+					console.log("Let's modify the description for " + storeInventoryArr[modifyThisEntrysDescription-1].name + ".");
+					prompt.question("Enter the new description: (or '0' to cancel)", (newDescri) => {
+						storeInventoryArr[modifyThisEntrysDescription-1].description = newDescri;
+						console.log(storeInventoryArr[modifyThisEntrysDescription-1].name + "'s quantity has been updated to " + newHP);
+						menuFunctions.menuOptions();
+					});	
+				} else {
+					console.log("Your entry was invalid! Try again.");
+					menuFunctions.changeDescription();
 				}
 		});		
 	},
