@@ -45,6 +45,13 @@ var storeInventory = {
 };
 
 var menuFunctions = {
+	populateList : function() {
+			for (i = 0; i <= storeInventoryArr.length - 1; i++) {
+				console.log((i+1) + ".) " + storeInventoryArr[i].name);
+		}
+
+	},
+
 	menuOptions: function() {
 	 	console.log("**************");
 		console.log("1. Add Item");
@@ -52,7 +59,8 @@ var menuFunctions = {
 		console.log("3. Search Item");
 		console.log("4. Modify Quanities");
 		console.log("5. Change Descriptions");
-		console.log("6. Exit");
+		console.log("6. Show All Items");
+		console.log("7. Exit");
 		console.log("**************");
 		menuFunctions.makeChoiceAtMenu();
 	},
@@ -61,7 +69,7 @@ var menuFunctions = {
 			if (userOption == "1") {
 				console.log("1. Add Item");
 			} else if (userOption == "2") {
-				console.log("2. Delete Item");
+				menuFunctions.deleteItem();
 			} else if (userOption == "3") {
 				console.log("3. Search Item");
 			} else if (userOption == "4") {
@@ -69,6 +77,8 @@ var menuFunctions = {
 			} else if (userOption == "5") {
 				console.log("5. Change Descriptions");
 			} else if (userOption == "6") {
+				console.log("6. Show All Items");
+			} else if (userOption == "7") {
 				console.log("Bai");
 				prompt.close();
 			} else {
@@ -76,8 +86,26 @@ var menuFunctions = {
 				menuFunctions.makeChoiceAtMenu();
 			}
 		});
+	},
 
-	}
+	deleteItem : function() {
+		menuFunctions.populateList();
+		prompt.question("What item to delete? ('0' to cancel): ", (deleteThisEntry) => {
+				if (deleteThisEntry == 0) {
+					console.log("Returning to Main Menu...");
+					menuFunctions.menuOptions();
+				} else if ((deleteThisEntry <= storeInventoryArr.length) && (deleteThisEntry > 0)) {
+					console.log("Let's get rid of " + storeInventoryArr[deleteThisEntry-1].name + ".");
+					storeInventoryArr.splice(deleteThisEntry-1, 1);
+					menuFunctions.menuOptions();
+				} else {
+					console.log("Your entry was invalid! Try again.");
+					menuFunctions.deleteItem();
+				}
+		});		
+	},
 };
 
+var storeInventoryArr = [];
+storeInventoryArr.push(storeInventory.item1, storeInventory.item2, storeInventory.item3, storeInventory.item4, storeInventory.item5);
 menuFunctions.menuOptions();
