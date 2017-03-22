@@ -8,35 +8,35 @@ var prompt = readline.createInterface({
 var storeInventory = {
 
 	item1 : {
-		name: "book",
+		name: "book(s)",
 		description: "hold this and look smrt",
 		price: 5.50,
 		quantity: 10
 	},
 
 	item2 : {
-		name: "samurai sword",
+		name: "samurai sword(s)",
 		description: "ladies love samurai swords",
 		price: 500,
 		quantity: 2
 	},
 
 	item3 : {
-		name: "quail doll",
+		name: "quail doll(s)",
 		description: "so beautiful and majestic",
 		price: 20,
 		quantity: 1
 	},
 
 	item4 : {
-		name: "revenge potion",
+		name: "revenge potion(s)",
 		description: "don't ask what it does...",
 		price: 129.95,
 		quantity: 50
 	},
 
 	item5 : {
-		name: "love potion",
+		name: "love potion(s)",
 		description: "one day, you won't need a potion for this!",
 		price: 89,
 		quantity: 2
@@ -77,7 +77,7 @@ var menuFunctions = {
 			} else if (userOption == "5") {
 				console.log("5. Change Descriptions");
 			} else if (userOption == "6") {
-				console.log("6. Show All Items");
+				menuFunctions.listAllItems();
 			} else if (userOption == "7") {
 				console.log("Bai");
 				prompt.close();
@@ -103,6 +103,15 @@ var menuFunctions = {
 					menuFunctions.deleteItem();
 				}
 		});		
+	},
+
+	listAllItems : function() {
+		for (i = 0; i <= storeInventoryArr.length - 1; i++) {
+			console.log("We have " + storeInventoryArr[i].quantity + " " + storeInventoryArr[i].name + " priced at $" + storeInventoryArr[i].price + "! " + (storeInventoryArr[i].description));
+		}
+		prompt.question("Enter whatever to return: ", function() {
+			menuFunctions.menuOptions();
+		});
 	},
 };
 
