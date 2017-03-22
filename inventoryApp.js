@@ -80,7 +80,7 @@ var menuFunctions = {
 			} else if (userOption == "3") {
 				console.log("3. Search Item");
 			} else if (userOption == "4") {
-				console.log("4. Modify Quanities");
+				menuFunctions.modifyQuantity();
 			} else if (userOption == "5") {
 				console.log("5. Change Descriptions");
 			} else if (userOption == "6") {
@@ -126,6 +126,27 @@ var menuFunctions = {
 		});		
 	},
 
+	modifyQuantity : function() {
+		menuFunctions.populateList();
+		prompt.question("What item to modify quantity? ('0' to cancel): ", (modifyThisEntrysQuant) => {
+				if (modifyThisEntrysQuant == "0") {
+					console.log("Returning to Main Menu...");
+					menuFunctions.menuOptions();
+				} else if ((modifyThisEntrysQuant <= storeInventoryArr.length) && (modifyThisEntrysQuant > 0)) {
+					console.log("Let's modify the quanity for " + storeInventoryArr[modifyThisEntrysQuant-1].name + ".");
+					prompt.question("Enter the new quantity: (or '0' to cancel)", (newHP) => {
+						storeInventoryArr[modifyThisEntrysQuant-1].quantity = parseInt(newHP);
+						console.log(storeInventoryArr[modifyThisEntrysQuant-1].name + "'s quantity has been updated to " + newHP);
+						menuFunctions.menuOptions();
+					});
+					
+				} else {
+					console.log("Your entry was invalid! Try again.");
+					menuFunctions.modifyQuantity();
+				}
+		});		
+	},
+
 	listAllItems : function() {
 		for (i = 0; i <= storeInventoryArr.length - 1; i++) {
 			console.log("We have " + storeInventoryArr[i].quantity + " " + storeInventoryArr[i].name + " priced at $" + storeInventoryArr[i].price + "! " + (storeInventoryArr[i].description));
@@ -135,7 +156,7 @@ var menuFunctions = {
 		});
 	},
 };
-
+var newHP;
 var storeInventoryArr = [];
 storeInventoryArr.push(storeInventory.item1, storeInventory.item2, storeInventory.item3, storeInventory.item4, storeInventory.item5);
 menuFunctions.menuOptions();
