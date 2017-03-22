@@ -41,4 +41,16 @@ var storeInventory = {
 		price: 89,
 		quantity: 2
 	}
+
+};
+
+var menuOptions = function() {
+		console.log("**************");
+		console.log("1. Add Item");
+		console.log("2. Delete Item");
+		console.log("3. Search Item");
+		console.log("4. Modify Quanities");
+		console.log("5. Change Descriptions");
+		console.log("6. Exit");
+		console.log("**************");
 };
