@@ -5,41 +5,48 @@ var prompt = readline.createInterface({
     output: process.stdout
 });
 
+function Item(name, price, quantity, description) {
+	this.name = name;
+	this.price = price;
+	this.quantity = quantity;
+	this.description = description;
+}
+
 var storeInventory = {
 
 	item1 : {
 		name: "book(s)",
-		description: "hold this and look smrt",
 		price: 5.50,
-		quantity: 10
+		quantity: 10,
+		description: "hold this and look smrt"
 	},
 
 	item2 : {
 		name: "samurai sword(s)",
-		description: "ladies love samurai swords",
 		price: 500,
-		quantity: 2
+		quantity: 2,
+		description: "ladies love samurai swords"
 	},
 
 	item3 : {
 		name: "quail doll(s)",
-		description: "so beautiful and majestic",
 		price: 20,
-		quantity: 1
+		quantity: 1,
+		description: "so beautiful and majestic"
 	},
 
 	item4 : {
 		name: "revenge potion(s)",
-		description: "don't ask what it does...",
 		price: 129.95,
-		quantity: 50
+		quantity: 50,
+		description: "don't ask what it does..."
 	},
 
 	item5 : {
 		name: "love potion(s)",
-		description: "one day, you won't need a potion for this!",
 		price: 89,
-		quantity: 2
+		quantity: 2,
+		description: "one day, you won't need a potion for this!"
 	}
 
 };
@@ -67,7 +74,7 @@ var menuFunctions = {
 	makeChoiceAtMenu: function() {
 		prompt.question("wat do: ", (userOption) => {
 			if (userOption == "1") {
-				console.log("1. Add Item");
+				menuFunctions.addItem();
 			} else if (userOption == "2") {
 				menuFunctions.deleteItem();
 			} else if (userOption == "3") {
@@ -85,6 +92,20 @@ var menuFunctions = {
 				console.log("Invalid. Try again.");
 				menuFunctions.makeChoiceAtMenu();
 			}
+		});
+	},
+
+	addItem : function() {
+		prompt.question("Item Name: ", (addedName) => {
+			prompt.question("Item Price: ", (addedPrice) => {
+				prompt.question("Item Quantity: ", (addedQuantity) => {
+					prompt.question("Item Description: ", (addedDescription) => {
+					var addedItem = new Item(addedName, addedPrice, addedQuantity, addedDescription);
+					storeInventoryArr.push(addedItem);
+					menuFunctions.menuOptions();
+					});
+				});
+			});
 		});
 	},
 
