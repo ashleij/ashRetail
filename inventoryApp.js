@@ -19,5 +19,26 @@ var storeInventory = {
 		description: "ladies love samurai swords",
 		price: 500,
 		quantity: 2
+	},
+
+	item3 : {
+		name: "quail doll",
+		description: "so beautiful and majestic",
+		price: 20,
+		quantity: 1
+	},
+
+	item4 : {
+		name: "revenge potion",
+		description: "don't ask what it does...",
+		price: 129.95,
+		quantity: 50
+	},
+
+	item5 : {
+		name: "love potion",
+		description: "one day, you won't need a potion for this!",
+		price: 89,
+		quantity: 2
 	}
 };
