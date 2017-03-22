@@ -44,8 +44,9 @@ var storeInventory = {
 
 };
 
-var menuOptions = function() {
-		console.log("**************");
+var menuFunctions = {
+	menuOptions: function() {
+	 	console.log("**************");
 		console.log("1. Add Item");
 		console.log("2. Delete Item");
 		console.log("3. Search Item");
@@ -53,4 +54,5 @@ var menuOptions = function() {
 		console.log("5. Change Descriptions");
 		console.log("6. Exit");
 		console.log("**************");
+	}
 };
