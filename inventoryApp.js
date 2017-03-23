@@ -12,6 +12,12 @@ function Item(name, price, quantity, description) {
 	this.description = description;
 }
 
+function backToMainMenu(mainMenuKeyword) {
+	if (mainMenuKeyWord == "menuplz"){
+		menuFunctions.menuOptions();
+	}
+}
+
 var storeInventory = {
 
 	item1 : {
@@ -53,10 +59,18 @@ var storeInventory = {
 
 var menuFunctions = {
 	populateList : function() {
-			for (i = 0; i <= storeInventoryArr.length - 1; i++) {
+		for (i = 0; i <= storeInventoryArr.length - 1; i++) {
 				console.log((i+1) + ".) " + storeInventoryArr[i].name);
 		}
 
+	},
+
+	backToMainMenu: function(mainMenuKeyWord) {
+		if (mainMenuKeyWord == "menuplz"){
+			menuFunctions.menuOptions();
+		} else {
+			return mainMenuKeyWord;
+		}
 	},
 
 	menuOptions: function() {
@@ -97,12 +111,19 @@ var menuFunctions = {
 
 	addItem : function() {
 		prompt.question("Item Name: ", (addedName) => {
+			menuFunctions.backToMainMenu(addedName);
 			prompt.question("Item Price: ", (addedPrice) => {
+				menuFunctions.backToMainMenu(addedPrice);
 				prompt.question("Item Quantity: ", (addedQuantity) => {
+					menuFunctions.backToMainMenu(addedQuantity);
 					prompt.question("Item Description: ", (addedDescription) => {
-					var addedItem = new Item(addedName, addedPrice, addedQuantity, addedDescription);
-					storeInventoryArr.push(addedItem);
-					menuFunctions.menuOptions();
+						menuFunctions.backToMainMenu(addedDescription);
+						if (addedDescription != "menuplz"){
+							var addedItem = new Item(addedName, addedPrice, addedQuantity, addedDescription);
+								storeInventoryArr.push(addedItem);
+								console.log("Item added!");
+								menuFunctions.menuOptions();
+						}
 					});
 				});
 			});
@@ -111,11 +132,10 @@ var menuFunctions = {
 
 	deleteItem : function() {
 		menuFunctions.populateList();
-		prompt.question("What item to delete? ('0' to cancel): ", (deleteThisEntry) => {
-				if (deleteThisEntry == 0) {
-					console.log("Returning to Main Menu...");
-					menuFunctions.menuOptions();
-				} else if ((deleteThisEntry <= storeInventoryArr.length) && (deleteThisEntry > 0)) {
+		prompt.question("What item to delete?: ", (deleteThisEntry) => {
+			menuFunctions.backToMainMenu(deleteThisEntry);
+			if (deleteThisEntry != "menuplz"){
+				if ((deleteThisEntry <= storeInventoryArr.length) && (deleteThisEntry > 0)) {
 					console.log("Let's get rid of " + storeInventoryArr[deleteThisEntry-1].name + ".");
 					storeInventoryArr.splice(deleteThisEntry-1, 1);
 					menuFunctions.menuOptions();
@@ -123,46 +143,56 @@ var menuFunctions = {
 					console.log("Your entry was invalid! Try again.");
 					menuFunctions.deleteItem();
 				}
+			}
 		});		
 	},
 
 	modifyQuantity : function() {
 		menuFunctions.populateList();
-		prompt.question("What item to modify quantity? ('0' to cancel): ", (modifyThisEntrysQuant) => {
-				if (modifyThisEntrysQuant == "0") {
-					console.log("Returning to Main Menu...");
+		prompt.question("What item to modify quantity? ", (modifyThisEntrysQuant) => {
+			menuFunctions.backToMainMenu(modifyThisEntrysQuant);
+			if (modifyThisEntrysQuant != "menuplz"){
+
+			if ((modifyThisEntrysQuant <= storeInventoryArr.length) && (modifyThisEntrysQuant > 0)) {
+				console.log("Let's modify the quanity for " + storeInventoryArr[modifyThisEntrysQuant-1].name + ".");
+				prompt.question("Enter the new quantity: ", (newHP) => {
+					menuFunctions.backToMainMenu(newHP);
+					if (newHP != "menuplz"){
+
+					storeInventoryArr[modifyThisEntrysQuant-1].quantity = parseInt(newHP);
+					console.log(storeInventoryArr[modifyThisEntrysQuant-1].name + "'s quantity has been updated to " + newHP);
 					menuFunctions.menuOptions();
-				} else if ((modifyThisEntrysQuant <= storeInventoryArr.length) && (modifyThisEntrysQuant > 0)) {
-					console.log("Let's modify the quanity for " + storeInventoryArr[modifyThisEntrysQuant-1].name + ".");
-					prompt.question("Enter the new quantity: (or '0' to cancel)", (newHP) => {
-						storeInventoryArr[modifyThisEntrysQuant-1].quantity = parseInt(newHP);
-						console.log(storeInventoryArr[modifyThisEntrysQuant-1].name + "'s quantity has been updated to " + newHP);
-						menuFunctions.menuOptions();
-					});	
-				} else {
-					console.log("Your entry was invalid! Try again.");
-					menuFunctions.modifyQuantity();
-				}
+					}
+				});	
+			} else {
+				console.log("Your entry was invalid! Try again.");
+				menuFunctions.modifyQuantity();
+			}
+		}
 		});		
 	},
 
 	changeDescription : function() {
 		menuFunctions.populateList();
-		prompt.question("What item to modify description? ('0' to cancel): ", (modifyThisEntrysDescription) => {
-				if (modifyThisEntrysDescription == "0") {
-					console.log("Returning to Main Menu...");
-					menuFunctions.menuOptions();
-				} else if ((modifyThisEntrysDescription <= storeInventoryArr.length) && (modifyThisEntrysDescription > 0)) {
+		prompt.question("What item to modify description? : ", (modifyThisEntrysDescription) => {
+			menuFunctions.backToMainMenu(modifyThisEntrysDescription);
+			if (modifyThisEntrysDescription != "menuplz"){
+				if ((modifyThisEntrysDescription <= storeInventoryArr.length) && (modifyThisEntrysDescription > 0)) {
 					console.log("Let's modify the description for " + storeInventoryArr[modifyThisEntrysDescription-1].name + ".");
-					prompt.question("Enter the new description: (or '0' to cancel)", (newDescri) => {
+					prompt.question("Enter the new description: ", (newDescri) => {
+						menuFunctions.backToMainMenu(newDescri);
+					if (newDescri != "menuplz"){
+
 						storeInventoryArr[modifyThisEntrysDescription-1].description = newDescri;
 						console.log(storeInventoryArr[modifyThisEntrysDescription-1].name + "'s quantity has been updated to " + newHP);
 						menuFunctions.menuOptions();
+					}
 					});	
 				} else {
 					console.log("Your entry was invalid! Try again.");
 					menuFunctions.changeDescription();
 				}
+			}
 		});		
 	},
 
@@ -179,25 +209,23 @@ var menuFunctions = {
 	
 		prompt.question("What item?: ", (searchItem) => {
 			searchItemLowerCase = searchItem.toLowerCase();
-			
-				console.log("**************");
-				for (var i = 0; i <= storeInventoryArr.length -1; i++) {
-					var checkItemName =  storeInventoryArr[i].name.toLowerCase();
-					
-					
-					if (checkItemName.includes(searchItemLowerCase) === true ) {
-					console.log(storeInventoryArr[i]); 
-					} 	
+			menuFunctions.backToMainMenu(searchItemLowerCase);
+				if (searchItemLowerCase != "menuplz"){
+					console.log("**************");
+					for (var i = 0; i <= storeInventoryArr.length -1; i++) {
+						var checkItemName =  storeInventoryArr[i].name.toLowerCase();
+						if (checkItemName.includes(searchItemLowerCase) === true ) {
+							console.log(storeInventoryArr[i]); 
+						} 	
+					}
+					prompt.question("Enter whatever to return: ", function() {
+						menuFunctions.menuOptions();
+					});
 				}
-				prompt.question("Enter whatever to return: ", function() {
-			menuFunctions.menuOptions();
-		});
-
 		});
 	}
-
-
 };
+
 var newHP;
 var storeInventoryArr = [];
 storeInventoryArr.push(storeInventory.item1, storeInventory.item2, storeInventory.item3, storeInventory.item4, storeInventory.item5);
