@@ -78,7 +78,7 @@ var menuFunctions = {
 			} else if (userOption == "2") {
 				menuFunctions.deleteItem();
 			} else if (userOption == "3") {
-				console.log("3. Search Item");
+				menuFunctions.searchItem();
 			} else if (userOption == "4") {
 				menuFunctions.modifyQuantity();
 			} else if (userOption == "5") {
@@ -174,6 +174,29 @@ var menuFunctions = {
 			menuFunctions.menuOptions();
 		});
 	},
+
+	searchItem : function() {
+	
+		prompt.question("What item?: ", (searchItem) => {
+			searchItemLowerCase = searchItem.toLowerCase();
+			
+				console.log("**************");
+				for (var i = 0; i <= storeInventoryArr.length -1; i++) {
+					var checkItemName =  storeInventoryArr[i].name.toLowerCase();
+					
+					
+					if (checkItemName.includes(searchItemLowerCase) === true ) {
+					console.log(storeInventoryArr[i]); 
+					} 	
+				}
+				prompt.question("Enter whatever to return: ", function() {
+			menuFunctions.menuOptions();
+		});
+
+		});
+	}
+
+
 };
 var newHP;
 var storeInventoryArr = [];
